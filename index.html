@@ -4,19 +4,39 @@
 <style>
 :root{--bg:#e9e6df;--panel:#fbfaf7;--ink:#1d2320;--mute:#5d665f;--acc:#6f7d6c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181a;--panel:#1d2325;--ink:#e7ebe8;--mute:#98a39c;--acc:#a9b8a5}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #p .note summary{color:#e5a16b}}
 html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
 #c{position:absolute;inset:0;width:100%;height:100%;display:block}
-#p{position:absolute;left:12px;top:calc(64px + env(safe-area-inset-top,0px));width:250px;max-height:calc(100% - 80px);overflow:auto;max-width:calc(100% - 24px);background:var(--panel);border-radius:10px;padding:12px 14px;box-shadow:0 2px 14px rgba(0,0,0,.25);font-size:13px}
-h1{font-size:16px;margin:0 0 2px}p{margin:0 0 8px;color:var(--mute);line-height:1.45;font-size:12px}
+#p{position:absolute;left:12px;top:calc(64px + env(safe-area-inset-top,0px));width:272px;max-height:calc(100% - 80px);overflow:auto;overscroll-behavior:contain;max-width:calc(100% - 24px);background:var(--panel);border-radius:12px;padding:14px 14px 12px;box-shadow:0 2px 14px rgba(0,0,0,.25);font-size:13px;box-sizing:border-box}
+h1{font-size:17px;margin:0 0 4px;letter-spacing:-.01em}p{margin:0 0 8px;color:var(--mute);line-height:1.45;font-size:12px}
 label{display:flex;justify-content:space-between;margin-top:8px}input[type=range]{width:100%;accent-color:var(--acc)}
-button{margin-top:10px;margin-right:6px;padding:5px 10px;border:1px solid var(--mute);background:none;color:var(--ink);border-radius:6px;cursor:pointer}
+button{margin-top:10px;margin-right:6px;padding:5px 10px;border:1px solid var(--mute);background:none;color:var(--ink);border-radius:6px;cursor:pointer;font:inherit}
 #pad button{margin:0;height:46px;font-size:16px;background:var(--panel)}
-#p .warn{background:rgba(180,90,30,.1);border-left:3px solid #b4612a;padding:7px 9px;border-radius:5px;margin:6px 0 2px;color:var(--ink);font-size:11.5px;line-height:1.5}
+#p .note{margin:0 0 10px}
+#p .note summary{display:inline-flex;align-items:center;gap:5px;list-style:none;font-size:12px;font-weight:600;color:#9a4f1f;background:rgba(180,90,30,.1);border-radius:999px;padding:3px 10px;margin:0;cursor:pointer}
+#p .note summary::-webkit-details-marker{display:none}
+#p .note summary .i{display:inline-grid;place-items:center;width:15px;height:15px;border-radius:50%;border:1.3px solid currentColor;font-size:10px;font-style:normal;font-weight:700;line-height:1}
+#p .note[open] summary{margin-bottom:6px}
+#p .warn{background:rgba(180,90,30,.1);border-left:3px solid #b4612a;padding:7px 9px;border-radius:5px;margin:0;color:var(--ink);font-size:12px;line-height:1.55}
 #p .row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-#p .row button{margin:0;font-size:12px;padding:5px 9px}
-#p details{margin-top:10px;border-top:1px solid rgba(128,128,128,.28);padding-top:6px}
-#p summary{cursor:pointer;font-size:12px;color:var(--mute);margin-bottom:2px}
-#p label i{font-style:normal;color:var(--mute);font-size:10.5px;font-weight:400}
+#p .row button{margin:0;font-size:12.5px;padding:6px 11px;flex:1 1 auto}
+#p .row button.pri{background:var(--acc);border-color:var(--acc);color:var(--panel);font-weight:600}
+#p .views{margin:0 0 4px}
+#p details.g{margin-top:12px;border-top:1px solid rgba(128,128,128,.25);padding-top:8px}
+#p details.g>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:700;color:var(--acc);letter-spacing:.02em;padding:2px 0;margin:0}
+#p details.g>summary::-webkit-details-marker{display:none}
+#p details.g>summary::after{content:"";width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin:0 3px 3px 0;transition:transform .15s}
+#p details.g:not([open])>summary::after{transform:rotate(-45deg);margin:0 4px 0 0}
+#p details.g.asm>summary{color:var(--mute)}
+#p .sub{font-size:11.5px;margin:4px 0 2px}
+#p label{align-items:center;gap:8px}
+#p label b{font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+#p label.ck{cursor:pointer;min-height:30px;margin-top:4px}
+#p label.ck input{width:18px;height:18px;margin:0;accent-color:var(--acc);flex:none}
+#p label i{font-style:normal;color:var(--mute);font-size:11px;font-weight:400}
+#p .foot{margin-top:14px;padding-top:10px;border-top:1px solid rgba(128,128,128,.25)}
+#p .foot button{background:none}
+#p .hint{margin:10px 0 0;font-size:11.5px}
 #exg{position:absolute;left:50%;transform:translateX(-50%);top:calc(14px + env(safe-area-inset-top,0px));
  background:#8a3a12;color:#fff;border-radius:8px;padding:6px 12px;font-size:12.5px;display:none;box-shadow:0 2px 10px rgba(0,0,0,.3)}
 #tour{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(74px + env(safe-area-inset-bottom,0px));
@@ -40,9 +60,13 @@ button{margin-top:10px;margin-right:6px;padding:5px 10px;border:1px solid var(--
 #pt{display:block;position:absolute;left:12px;top:calc(12px + env(safe-area-inset-top,0px));z-index:6;margin:0;width:44px;height:44px;font-size:18px;background:var(--panel);box-shadow:0 2px 10px rgba(0,0,0,.2)}
 #p.hid{display:none}
 @media (max-width:760px){
- #p{top:calc(64px + env(safe-area-inset-top,0px));width:214px;padding:9px 11px;font-size:11.5px}
- #p h1{font-size:14px;margin-bottom:0} #p label{margin-top:5px} #p p{font-size:10.5px}
- #p input[type=range]{height:16px}
+ #p{top:calc(64px + env(safe-area-inset-top,0px));width:min(300px,calc(100% - 24px));max-height:calc(100% - 250px - env(safe-area-inset-bottom,0px));padding:12px 13px;font-size:14px}
+ #p h1{font-size:16px} #p p,#p .sub,#p .hint{font-size:12.5px} #p .warn{font-size:13px}
+ #p details.g>summary{font-size:13px;min-height:34px}
+ #p label{margin-top:6px} #p label.ck{min-height:40px;margin-top:0}
+ #p label.ck input{width:22px;height:22px}
+ #p input[type=range]{height:32px;margin:0}
+ #p .row button{min-height:40px;font-size:13.5px}
  #pad,#zb{transform:scale(.88);transform-origin:bottom right}
 }
 </style></head><body>
@@ -56,29 +80,38 @@ button{margin-top:10px;margin-right:6px;padding:5px 10px;border:1px solid var(--
 <li><b>좌표계</b> — EPSG:5187(Korea 2000 동부원점). 기준점은 수치지도 도로 교차점 4곳(A–D).</li>
 <li><b>정합 확인</b> — 기준점 4곳이 도로중심선에서 8–23cm 안에 들어옴. 이는 <b>기준점만의 값이며 성벽 전체의 정확도가 아닙니다.</b></li>
 <li><b>건물·지형·길·가로수</b> — 국토지리정보원 수치지도 1:1,000, 9도엽(2025·2026).</li>
-<li><b>바닥 영상</b> — 네이버지도 위성영상 2장을 이어 붙임(0.649 m/픽셀).</li></ul>
+<li><b>바닥 영상</b> — 네이버지도 위성영상 2장을 이어 붙임(0.649 m/픽셀).</li>
+<li><b>축척</b> — 3D 장면은 수치지도에 맞춰 <b>0.65 m/픽셀</b>로 고정했습니다. 사용자가 조절하는 값이 아닙니다.</li></ul>
 <p><b>가정값</b> — 성벽 높이 4m·두께 3m·성문 폭 14m, 문루·객사·동헌의 건물 형태와 칸 수. 발굴 성과나 복원안에 근거하지 않은 체험용 설정입니다.</p>
 <p><b>나무</b> — 가로수 681그루만 실제 위치이고 나머지는 위성영상 녹지 판독으로 배치한 것입니다.</p>
 <button id="srcx">닫기</button></div>
-<div id="p"><h1>양산읍성 3D 추정 복원</h1>
-<p class="warn">QGIS로 추적한 성곽선과 국토지리정보원 수치지도를 대조해 만든 <b>교육용 추정 복원</b>입니다. 성벽 높이·두께와 건물 외형은 고증된 값이 아니라 가정값입니다.</p>
-<div class="row"><button id="bAll">전체 보기</button><button id="bRst">설정 초기화</button><button id="bSrc">자료와 근거</button></div>
-<label style="align-items:center"><span>옛 읍성 외곽선(카툰)</span><input id="o13" type="checkbox" style="width:auto;accent-color:var(--acc)"></label>
-<label>읍성 불투명도<b id="v1">60%</b></label><input id="o1" type="range" min="0" max="100" value="60">
-<label>위성사진 밝기<b id="v2">100%</b></label><input id="o2" type="range" min="20" max="100" value="100">
-<label>길 강조<b id="v9">75%</b></label><input id="o9" type="range" min="0" max="100" value="75">
-<label style="align-items:center"><span>나무 보이기</span><input id="o10" type="checkbox" checked style="width:auto;accent-color:var(--acc)"></label>
-<label style="align-items:center"><span>이름 표시</span><input id="o11" type="checkbox" checked style="width:auto;accent-color:var(--acc)"></label>
-<label style="align-items:center"><span>고품질(느리면 끄기)</span><input id="o12" type="checkbox" checked style="width:auto;accent-color:var(--acc)"></label>
-<label>건물 불투명도<b id="v7">100%</b></label><input id="o7" type="range" min="0" max="100" value="100">
-<label>지형 높이 과장<b id="v8">1×</b></label><input id="o8" type="range" min="1" max="5" step="0.5" value="1">
-<details id="adv"><summary>고급 설정 — 성벽 치수(모두 가정값)</summary>
-<label>성벽 높이 <i>(가정)</i><b id="v3">4 m</b></label><input id="o3" type="range" min="1" max="20" step="1" value="4">
-<label>성벽 두께 <i>(가정)</i><b id="v5">3 m</b></label><input id="o5" type="range" min="1" max="15" step="0.5" value="3">
-<label>성문 폭 <i>(가정)</i><b id="v6">14 m</b></label><input id="o6" type="range" min="6" max="30" step="1" value="14">
-<label>m / 픽셀 (수치지도에 맞춰 고정)<b id="v4">0.65</b></label><input id="o4" type="range" min="0.4" max="1" step="0.01" value="0.65" disabled>
+<div id="p"><h1>양산읍성 3D</h1>
+<details class="note"><summary>교육용 추정 복원 <i class="i" aria-hidden="true">i</i></summary>
+<p class="warn">QGIS로 추적한 성곽선과 국토지리정보원 수치지도를 대조해 만든 <b>교육용 추정 복원</b>입니다. 성벽 높이·두께와 건물 외형은 고증된 값이 아니라 가정값입니다.</p></details>
+<div class="row views"><button id="bAll" class="pri">전체 보기</button><button id="bTop">위에서 보기</button></div>
+<details class="g" open><summary>읍성 표현</summary>
+<label>성벽 불투명도<b id="v1">60%</b></label><input id="o1" type="range" min="0" max="100" value="60" aria-label="성벽 불투명도">
+<label class="ck"><span>외곽선 강조 <i>(성벽·문루·객사·동헌)</i></span><input id="o13" type="checkbox"></label>
 </details>
-<p style="margin-top:10px;margin-bottom:0">WASD 이동 · 드래그 회전 · 더블클릭 확대</p></div>
+<details class="g" open><summary>주변 환경</summary>
+<label>주변 건물 불투명도<b id="v7">100%</b></label><input id="o7" type="range" min="0" max="100" value="100" aria-label="주변 건물 불투명도">
+<label>위성사진 밝기<b id="v2">100%</b></label><input id="o2" type="range" min="20" max="100" value="100" aria-label="위성사진 밝기">
+<label>길 강조<b id="v9">75%</b></label><input id="o9" type="range" min="0" max="100" value="75" aria-label="길 강조">
+<label class="ck"><span>나무 보이기</span><input id="o10" type="checkbox" checked></label>
+<label class="ck"><span>이름 표시</span><input id="o11" type="checkbox" checked></label>
+</details>
+<details class="g" id="gScr" open><summary>지형·화면</summary>
+<label>지형 높이 과장<b id="v8">1×</b></label><input id="o8" type="range" min="1" max="5" step="0.5" value="1" aria-label="지형 높이 과장">
+<label class="ck"><span>고화질 <i>(느리면 끄기)</i></span><input id="o12" type="checkbox" checked></label>
+</details>
+<details class="g asm" id="adv"><summary>복원 가정값 조절</summary>
+<p class="sub">고증값이 아닌 체험용 설정입니다. 손을 떼면 3D에 반영됩니다.</p>
+<label>성벽 높이<b id="v3">4 m</b></label><input id="o3" type="range" min="1" max="20" step="1" value="4" aria-label="성벽 높이(가정)">
+<label>성벽 두께<b id="v5">3 m</b></label><input id="o5" type="range" min="1" max="15" step="0.5" value="3" aria-label="성벽 두께(가정)">
+<label>성문 폭<b id="v6">14 m</b></label><input id="o6" type="range" min="6" max="30" step="1" value="14" aria-label="성문 폭(가정)">
+</details>
+<div class="row foot"><button id="bSrc">자료와 근거</button><button id="bRst">설정 초기화</button></div>
+<p class="hint" id="hint"></p></div>
 <div id="pad" style="position:absolute;right:76px;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(3,46px);gap:6px"><span></span><button data-k="KeyW">W</button><span></span><button data-k="KeyA">A</button><button data-k="KeyS">S</button><button data-k="KeyD">D</button></div>
 <div id="zb" style="position:absolute;right:14px;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:8px"><button id="zi" style="margin:0;width:46px;height:46px;font-size:24px;background:var(--panel)">+</button><button id="zo" style="margin:0;width:46px;height:46px;font-size:24px;background:var(--panel)">−</button></div>
 <script>/* three.js r128 — MIT License, (c) 2010-2021 three.js authors */
@@ -1495,7 +1528,10 @@ addEventListener('resize',size);size();view(false);
 const $=id=>document.getElementById(id);
 o1.oninput=()=>{v1.textContent=o1.value+'%';wall&&(wall.material.opacity=o1.value/100)};
 o2.oninput=()=>{v2.textContent=o2.value+'%';const k=o2.value/100;ground&&ground.material.color.setRGB(k,k,k)};
-o3.oninput=()=>{v3.textContent=o3.value+' m';build()};
+/* 무거운 재생성은 드래그 중 미루고(250ms 멈춤) 손을 뗄 때 즉시 반영 */
+let _bt=0;function buildSoon(){clearTimeout(_bt);_bt=setTimeout(build,250)}
+function buildNow(){clearTimeout(_bt);build()}
+o3.oninput=()=>{v3.textContent=o3.value+' m';buildSoon()};o3.onchange=buildNow;
 o9.oninput=()=>{v9.textContent=o9.value+"%";roadm&&(roadm.material.opacity=o9.value/100,roadm.visible=o9.value>0)};o10.onchange=()=>{treesG&&(treesG.visible=o10.checked)};
 o13.onchange=()=>setToon(o13.checked);
 function exgBadge(){const v=+o8.value;exgv.textContent=v+'×';exg.style.display=v>1?'block':'none'}
@@ -1504,8 +1540,9 @@ document.getElementById('bRst').onclick=()=>{
  for(const k in DEF){const el=document.getElementById(k);el.value=DEF[k];el.oninput&&el.oninput()}
  o10.checked=true;o10.onchange();o11.checked=true;o11.onchange();
  o13.checked=false;setToon(false);o12.checked=!LITE;o12.onchange();
- clearSel();exgBadge();adv.open=false;view(false)};
+ clearSel();exgBadge();buildNow();adv.open=false;view(false)};
 document.getElementById('bAll').onclick=()=>{clearSel();view(false)};
+document.getElementById('bTop').onclick=()=>{clearSel();view(true)};
 document.getElementById('bSrc').onclick=()=>{src.style.display='block'};
 document.getElementById('srcx').onclick=()=>{src.style.display='none'};
 const TOURTX={'북문':'읍성의 북쪽 문. 현 북부동 큰길과 만나는 자리다.',
@@ -1521,6 +1558,10 @@ document.querySelectorAll('#tour button').forEach(btn=>{btn.onclick=()=>{
  ctl.target.set(o.userData.x,y+6,o.userData.z);
  cam.position.set(o.userData.x+55,y+42,o.userData.z+62);ctl.update()}});
 o12.checked=!LITE;
+{const coarse=matchMedia&&matchMedia('(pointer:coarse)').matches;
+ hint.textContent=coarse?'한 손가락: 회전 · 두 손가락: 확대/이동 · 문·객사·동헌을 탭하면 거리 표시'
+  :'드래그: 회전 · 우클릭 드래그: 이동 · 휠: 확대 · WASD/방향키: 이동 · 더블클릭: 그 자리로 확대 · 문·객사·동헌 클릭: 거리 표시';
+ if(innerWidth<760)gScr.open=false;}
 {const pn=document.getElementById('p'),pb=document.getElementById('pt');
  if(matchMedia&&matchMedia('(pointer:coarse)').matches&&innerWidth<620)pn.classList.add('hid');
  pb.onclick=e=>{e.preventDefault();pn.classList.toggle('hid')};}
@@ -1530,12 +1571,13 @@ o12.onchange=()=>{const hi=o12.checked;
  sun.shadow.mapSize.set(hi?4096:2048,hi?4096:2048);
  if(sun.shadow.map){sun.shadow.map.dispose();sun.shadow.map=null}
  DETAIL=hi;TSTEP=hi?1:2;BG=null;build()};o11.onchange=()=>{NS.forEach(l=>l.visible=o11.checked)};
-o7.oninput=()=>{v7.textContent=o7.value+"%";bld&&(bld.traverse(m=>{if(m.material)m.material.opacity=o7.value/100}),bld.visible=o7.value>0)};o8.oninput=()=>{v8.textContent=o8.value+"×";EXG=+o8.value;exgBadge();build()};
-o5.oninput=()=>{v5.textContent=o5.value+' m';build()};
-o6.oninput=()=>{v6.textContent=o6.value+' m';build()};
-o4.oninput=()=>{v4.textContent=(+o4.value).toFixed(2);s=+o4.value;build()};
-const keys={};addEventListener('keydown',e=>{keys[e.code]=1});addEventListener('keyup',e=>{keys[e.code]=0});addEventListener('blur',()=>{for(const k in keys)keys[k]=0});
-addEventListener('pointerdown',()=>{window.focus();cv.focus()},true);
+o7.oninput=()=>{v7.textContent=o7.value+"%";bld&&(bld.traverse(m=>{if(m.material)m.material.opacity=o7.value/100}),bld.visible=o7.value>0)};o8.oninput=()=>{v8.textContent=o8.value+"×";EXG=+o8.value;exgBadge();buildSoon()};o8.onchange=buildNow;
+o5.oninput=()=>{v5.textContent=o5.value+' m';buildSoon()};o5.onchange=buildNow;
+o6.oninput=()=>{v6.textContent=o6.value+' m';buildSoon()};o6.onchange=buildNow;
+/* 설정 항목(슬라이더·체크박스)을 조작하는 중에는 지도 이동 단축키를 받지 않음 */
+const isCtl=t=>!!(t&&t.closest&&t.closest('input,select,textarea,#src'));
+const keys={};addEventListener('keydown',e=>{if(isCtl(e.target))return;keys[e.code]=1});addEventListener('keyup',e=>{keys[e.code]=0});addEventListener('blur',()=>{for(const k in keys)keys[k]=0});
+addEventListener('pointerdown',e=>{if(e.target.closest&&e.target.closest('#p,#src,#tour,#info'))return;window.focus();cv.focus()},true);
 document.querySelectorAll('#pad button').forEach(b=>{const k=b.dataset.k;b.onpointerdown=e=>{e.preventDefault();keys[k]=1};['onpointerup','onpointerleave','onpointercancel'].forEach(n=>b[n]=()=>{keys[k]=0})});
 let zd=0;function zoomBy(f){const d=cam.position.clone().sub(ctl.target);cam.position.copy(ctl.target).add(d.setLength(THREE.MathUtils.clamp(d.length()*f,ctl.minDistance,6000)))}
 [['zi',1],['zo',-1]].forEach(([id,v])=>{const b=$(id);b.onpointerdown=e=>{e.preventDefault();zoomBy(v>0?.85:1.18);zd=v};['onpointerup','onpointerleave','onpointercancel'].forEach(n=>b[n]=()=>{zd=0})});
